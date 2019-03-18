@@ -1,6 +1,6 @@
 const con = require('../lib/conexionbd');
 
-getList = function(res, res){
+getList = function(req, res){
     con.query("SELECT * FROM pelicula", function (err, result, fields) {
         if (err) throw err;
         let respuesta = {
@@ -10,7 +10,7 @@ getList = function(res, res){
     });
 }
 
-getGeneros = function(res, res){
+getGeneros = function(req, res){
     con.query("SELECT * FROM genero", function (err, result, fields) {
         if (err) throw err;
         let respuesta = {
