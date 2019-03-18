@@ -10,6 +10,17 @@ getList = function(res, res){
     });
 }
 
+getGeneros = function(res, res){
+    con.query("SELECT * FROM genero", function (err, result, fields) {
+        if (err) throw err;
+        let respuesta = {
+            generos: result
+        }
+        res.send(respuesta);
+    });
+}
+
 module.exports = {
-    getList
+    getList,
+    getGeneros
 }
