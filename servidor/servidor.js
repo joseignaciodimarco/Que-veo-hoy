@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 //seteamos el puerto en el cual va a escuchar los pedidos la aplicación
 const puerto = '8080';
 
-app.get('/peliculas', controller.getList);
+app.get('/peliculas?', controller.getList);
 app.get('/generos', controller.getGeneros);
 
 app.listen(puerto, function () {

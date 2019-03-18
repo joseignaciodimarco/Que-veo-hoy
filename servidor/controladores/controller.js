@@ -1,7 +1,7 @@
 const con = require('../lib/conexionbd');
 
 getList = function(req, res){
-    con.query("SELECT * FROM pelicula", function (err, result, fields) {
+   con.query("SELECT * FROM pelicula ORDER BY titulo ASC", function (err, result, fields) {
         if (err) throw err;
         let respuesta = {
             peliculas: result
