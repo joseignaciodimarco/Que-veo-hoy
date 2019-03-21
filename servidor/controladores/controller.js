@@ -53,7 +53,12 @@ getGeneros = function(req, res){
     });
 }
 
+getInfoPelicula = function(req, res){
+    res.send('get info pelicula');
+}
+
 module.exports = {
     getList,
-    getGeneros
+    getGeneros,
+    getInfoPelicula
 }

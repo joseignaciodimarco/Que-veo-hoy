@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 const puerto = '8080';
 
 app.get('/peliculas', controller.getList);
+app.get('/peliculas/:id', controller.getInfoPelicula);
 app.get('/generos', controller.getGeneros);
 
 app.listen(puerto, function () {

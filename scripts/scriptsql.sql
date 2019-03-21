@@ -23,3 +23,16 @@ CREATE TABLE IF NOT EXISTS genero(
     nombre VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS actor(
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(70) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS actor_pelicula(
+    id INT NOT NULL AUTO_INCREMENT
+    actor_id INT NOT NULL,
+    pelicula_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
