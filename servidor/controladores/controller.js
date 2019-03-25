@@ -87,8 +87,37 @@ getInfoPelicula = function(req, res){
     });
 }
 
+getRecomendacion = (req, res) => {
+    let query = 'SELECT p.poster, p.trama, p.titulo, g.nombre FROM pelicula as p INNER JOIN genero as g ON p.genero_id = g.id '
+
+    let clausula = 'where 1 = 1'; //uso la condicion 1 = 1 para simplificar la clausula en caso de que existan filtros 
+
+    if(req.query.anio_inicio && req.query.anio_fin){
+        clausula += ' and p.anio between '+req.query.anio_inicio+' AND ' + req.query.anio_fin+ '';
+    }
+
+    if(req.query.genero){
+        clausula += ' and p.genero_id = (SELECT id FROM genero WHERE nombre = "'+req.query.genero+'")';
+    }
+
+    if(req.query.puntuacion){
+        clausula += ' and p.puntuacion = '+req.query.puntuacion;
+    }
+
+    con.query(query + clausula, function (err, result, fields) {
+        if (err) throw err;
+        
+        let respuesta = {
+            peliculas: result
+        }
+        
+        res.send(respuesta);
+    });
+}
+
 module.exports = {
     getList,
     getGeneros,
-    getInfoPelicula
+    getInfoPelicula,
+    getRecomendacion
 }
