@@ -54,25 +54,36 @@ getGeneros = function(req, res){
 }
 
 getInfoPelicula = function(req, res){
-    con.query("SELECT * FROM actor as a INNER JOIN actor_pelicula  as ap ON a.id = ap.actor_id INNER JOIN pelicula as p ON ap.pelicula_id = p.id WHERE p.id = " + 
+    con.query("SELECT p.titulo, p.duracion, p.director, p.anio, p.fecha_lanzamiento, p.puntuacion, p.poster, p.trama, g.nombre as genero, a.nombre as nombre FROM actor as a INNER JOIN actor_pelicula  as ap ON a.id = ap.actor_id INNER JOIN pelicula as p ON ap.pelicula_id = p.id INNER join genero as g ON g.id = p.genero_id WHERE p.id = " + 
     req.params.id, function (err, result, fields) {
         if (err) throw err;
+
+        let actores = [];
+
         let pelicula = {
-            titulo = result[0].titulo,
-            duracion = result[0].duracion,
-            director = result[0].director,
-            anio = result[0].anio,
-            fecha_lanzamiento = result[0].fecha_lanzamiento,
-            puntuacion = result[0].puntuacion,
-            poster = result[0].poster,
-            trama = result[0].trama,
-            genero_id = result[0].genero_id,
+            titulo : result[0].titulo,
+            duracion : result[0].duracion,
+            director : result[0].director,
+            anio : result[0].anio,
+            fecha_lanzamiento : result[0].fecha_lanzamiento,
+            puntuacion : result[0].puntuacion,
+            poster : result[0].poster,
+            trama : result[0].trama,
+            nombre: result[0].genero
+        } 
+
+        for(let i = 0; i< result.length; i++){
+            actores.push({nombre: result[i].nombre});
         }
 
+        let genero = result[0].genero;
+
         let respuesta = {
-            pelicula = pelicula
+            pelicula : pelicula,
+            actores: actores,
+            genero: genero
         }
-        res.send();
+        res.send(respuesta);
     });
 }
 
