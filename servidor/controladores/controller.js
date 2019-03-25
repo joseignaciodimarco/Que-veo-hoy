@@ -54,7 +54,26 @@ getGeneros = function(req, res){
 }
 
 getInfoPelicula = function(req, res){
-    res.send('get info pelicula');
+    con.query("SELECT * FROM actor as a INNER JOIN actor_pelicula  as ap ON a.id = ap.actor_id INNER JOIN pelicula as p ON ap.pelicula_id = p.id WHERE p.id = " + 
+    req.params.id, function (err, result, fields) {
+        if (err) throw err;
+        let pelicula = {
+            titulo = result[0].titulo,
+            duracion = result[0].duracion,
+            director = result[0].director,
+            anio = result[0].anio,
+            fecha_lanzamiento = result[0].fecha_lanzamiento,
+            puntuacion = result[0].puntuacion,
+            poster = result[0].poster,
+            trama = result[0].trama,
+            genero_id = result[0].genero_id,
+        }
+
+        let respuesta = {
+            pelicula = pelicula
+        }
+        res.send();
+    });
 }
 
 module.exports = {
